@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -39,5 +39,8 @@ public abstract class Pregunta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "examen_id")
     @JsonIgnore // Evita bucles infinitos al convertir a JSON
+        @JsonProperty("tipoPregunta")     // Anotación para Jackson (que usa ApiService)
+    @SerializedName("tipoPregunta") // Anotación para Gson (que usa ContenidoController)
+    private String tipo;
     private Examen examen;
 }
