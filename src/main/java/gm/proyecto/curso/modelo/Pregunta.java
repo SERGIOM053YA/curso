@@ -7,13 +7,16 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@JsonIgnoreProperties(ignoreUnknown = true)
+// ¡YA NO NECESITAMOS JsonIgnoreProperties, JsonProperty NI SerializedName AQUÍ!
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED) // Estrategia para tener una tabla por cada tipo de pregunta
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_pregunta") // Columna que diferencia los tipos
+
+// Estas anotaciones SÍ son necesarias para que el backend ENVÍE el JSON correctamente
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -24,6 +27,8 @@ import lombok.NoArgsConstructor;
         @JsonSubTypes.Type(value = PreguntaOpcionMultiple.class, name = "OPCION_MULTIPLE"),
         @JsonSubTypes.Type(value = PreguntaSeleccionMultiple.class, name = "SELECCION_MULTIPLE")
 })
+// --- FIN DE LAS ANOTACIONES DE JSON ---
+
 public abstract class Pregunta {
 
     @Id
@@ -39,8 +44,8 @@ public abstract class Pregunta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "examen_id")
     @JsonIgnore // Evita bucles infinitos al convertir a JSON
-        @JsonProperty("tipoPregunta")     // Anotación para Jackson (que usa ApiService)
-    @SerializedName("tipoPregunta") // Anotación para Gson (que usa ContenidoController)
-    private String tipo;
     private Examen examen;
+
+    // --- ¡EL CAMPO "tipo" SE FUE! ---
+    // (No pertenece a la entidad del backend)
 }
