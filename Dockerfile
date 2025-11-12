@@ -18,6 +18,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Copia SOLO el .jar compilado de la etapa anterior
+# ¡¡ESTA ES LA CORRECCIÓN!! (curso -> cursos)
 COPY --from=build /app/target/cursos-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Expone el puerto 8080 (el que usa Spring Boot)
