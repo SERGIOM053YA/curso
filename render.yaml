@@ -1,40 +1,22 @@
 # Manual de instrucciones para Render
 
+# render.yaml
 services:
-  # Define un nuevo servicio (tu backend)
   - type: web
-    # El nombre de tu servicio en Render
-    name: curso
-    
-    # El entorno: ¡JAVA! Esto es lo que reemplaza al "Runtime" que no encontrabas.
-    env: java
-    
-    # El repositorio de GitHub
-    repo: https://github.com/SERGIOM053YA/curso
-    
-    # La rama a desplegar
-    branch: main
-    
-    # Plan de Render (el gratuito)
+    name: curso-backend
+    env: docker  # <--- usa Docker, no "java"
     plan: free
+    repo: https://github.com/SERGIOM053YA/curso
+    branch: main
 
-    # Configuración de la construcción (Build)
-    build:
-      # El comando exacto que le diste antes
-      command: mvn clean install
+    # Render usará automáticamente tu Dockerfile
+    dockerfilePath: ./Dockerfile
 
-    # Configuración de inicio (Start)
-    start:
-      # El comando exacto que le diste antes
-      command: java -jar target/curso-0.0.1-SNAPSHOT.jar
-
-    # ¡Importante! Variables de Entorno
-    # Render tomará las que ya configuraste en la pestaña "Environment"
-    # y las inyectará aquí automáticamente.
+    # Variables de entorno que se inyectan en el contenedor
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
-          name: cursos_db_640q # El nombre de tu base de datos en Render
+          name: cursos_db_640q
           property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
@@ -44,5 +26,8 @@ services:
         fromDatabase:
           name: cursos_db_640q
           property: password
-      # Tus otras variables secretas de email se tomarán del "Environment Group"
-      # o de las que pusiste manualmente en la pestaña "Environment".
+      - key: SPRING_MAIL_USERNAME
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false
+
