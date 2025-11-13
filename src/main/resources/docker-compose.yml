@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: curso_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  spring-app:
+    build: .
+    container_name: curso-app
+    depends_on:
+      - postgres-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-d47vb14hg0os73futs10-a:5432/cursos_db_640q
+      SPRING_DATASOURCE_USERNAME: sergiom053ya
+      SPRING_DATASOURCE_PASSWORD: 2846
+      SPRING_MAIL_FROM: soportemadebionic@gmail.com
+      SPRING_MAIL_USERNAME: soportemadebionic@gmail.com
+      SPRING_MAIL_PASSWORD: kuxr ctkn bgby jfhg
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
