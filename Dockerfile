@@ -1,13 +1,23 @@
 # Etapa 1: Construcción
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
+
+# Descarga dependencias primero (mejora cache)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copia el código y construye
 COPY . .
-RUN mvn clean install -DskipTests
+RUN mvn -q clean package -DskipTests
 
 # Etapa 2: Ejecución
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /app/target/cursos-0.0.1-SNAPSHOT.jar app.jar
+
+# Copia el jar generado
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
 
