@@ -70,10 +70,10 @@
         </dependency>
         <!-- MySQL Driver -->
 		<dependency>
-    		<groupId>mysql</groupId>
-    		<artifactId>mysql-connector-j</artifactId>
-    		<version>9.2.0</version>
+    		<groupId>org.mariadb.jdbc</groupId>
+    		<artifactId>mariadb-java-client</artifactId>
 		</dependency>
+
 
 
 		<dependency>
