@@ -28,6 +28,8 @@ services:
           property: password
       - key: SPRING_MAIL_USERNAME
         sync: false
+      - key: SPRING_MAIL_FORM
+        sync: false
       - key: SPRING_MAIL_PASSWORD
         sync: false
 
