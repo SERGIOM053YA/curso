@@ -68,12 +68,13 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- MariaDB/MySQL Driver -->
+        <!-- MySQL Driver -->
 		<dependency>
-  			 <groupId>org.mariadb.jdbc</groupId>
-   			 <artifactId>mariadb-java-client</artifactId>
-   			 <version>3.3.3</version>
+    		<groupId>mysql</groupId>
+    		<artifactId>mysql-connector-j</artifactId>
+    		<version>9.2.0</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
