@@ -42,40 +42,40 @@ public class SecurityConfig {
 
                         // --- REGLA #2: Estudiante (Reglas Específicas) ---
                         // (Las reglas más específicas DEBEN ir primero)
-                        .requestMatchers(HttpMethod.GET, "/api/examenes/{examenId}/mi-resultado").hasAnyAuthority("ADMIN", "ESTUDIANTE")
+                        .requestMatchers(HttpMethod.GET, "/api/examenes/{examenId}/mi-resultado").hasAnyAuthority("ADMINISTRADOR", "ESTUDIANTE")
                         .requestMatchers(HttpMethod.POST, "/api/entregas/**").hasAuthority("ESTUDIANTE")
                         .requestMatchers(HttpMethod.POST, "/api/respuestas/examen/**").hasAuthority("ESTUDIANTE") // Estudiante ENVÍA
                         .requestMatchers(HttpMethod.POST, "/api/inscripciones/**").hasAuthority("ESTUDIANTE")
 
                         // --- REGLA #3: Admin (Reglas Específicas) ---
                         // (Estas reglas de admin deben ir ANTES de las generales de admin)
-                        .requestMatchers(HttpMethod.POST, "/api/cursos/{cursoId}/unidades").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/respuestas/examen/{examenId}/abiertas").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/respuestas/{respuestaId}/calificar-manual").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/cursos/{cursoId}/unidades").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/api/respuestas/examen/{examenId}/abiertas").hasAuthority("ADMINTRADOR")
+                        .requestMatchers(HttpMethod.POST, "/api/respuestas/{respuestaId}/calificar-manual").hasAuthority("ADMINISTRADOR")
 
                         // --- REGLA #4: Admin (Generales) ---
                         // Cursos
-                        .requestMatchers(HttpMethod.POST, "/api/cursos/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/cursos/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/cursos/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/cursos/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/cursos/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/cursos/**").hasAuthority("ADMINISTRADOR")
 
                         // Unidades
-                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{id}").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/unidades/{id}").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{id}/restaurar").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{id}").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/unidades/{id}").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{id}/restaurar").hasAuthority("ADMINISTRADOR")
 
                         // Contenido
-                        .requestMatchers(HttpMethod.POST, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/unidades/{unidadId}/contenidos/**").hasAuthority("ADMINISTRADOR")
 
                         // Otros Admin
-                        .requestMatchers(HttpMethod.POST, "/api/upload").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/examenes/**").hasAuthority("ADMIN") // <-- ¡LA LÍNEA QUE FALTA!
-                        .requestMatchers("/api/examenes/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/notificaciones/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/tareas/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/entregas/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/upload").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/examenes/**").hasAuthority("ADMINISTRADOR") // <-- ¡LA LÍNEA QUE FALTA!
+                        .requestMatchers("/api/examenes/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers("/api/notificaciones/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers("/api/tareas/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/entregas/**").hasAuthority("ADMINISTRADOR")
 
                         // --- REGLA #5: Compartidas (Ver) ---
                         .requestMatchers(HttpMethod.GET, "/api/cursos/**").authenticated()
