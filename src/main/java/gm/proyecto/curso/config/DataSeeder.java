@@ -36,7 +36,8 @@ public class DataSeeder implements CommandLineRunner {
         Map<String, String> adminsACrear = Map.of(
                 "humiko.hernandez@upvm.edu.mx", "Humiko Hernandez",
                 "beatriz.perez@upvm.edu.mx", "Beatriz Perez",
-                "sergio.mendoza.plascencia@upvm.edu.mx", "Sergio Mendoza Plascencia"
+                "sergio.mendoza.plascencia@upvm.edu.mx", "Sergio Mendoza Plascencia",
+                "elizabeth.sanchez@upvm.edu.mx", "Elizabeth Sanchez"
         );
 
         for (Map.Entry<String, String> entry : adminsACrear.entrySet()) {
@@ -51,7 +52,7 @@ public class DataSeeder implements CommandLineRunner {
                 admin.setEmail(email);
                 admin.setNombreCompleto(nombre);
                 admin.setPassword(contrasenaEncriptada);
-                admin.setRol("ADMIN");
+                admin.setRol("ADMINISTRADOR");
 
                 // 3. Guardamos el nuevo admin en la base de datos
                 usuarioRepository.save(admin);
