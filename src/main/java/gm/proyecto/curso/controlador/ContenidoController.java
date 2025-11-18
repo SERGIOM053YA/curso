@@ -60,7 +60,7 @@ public class ContenidoController {
         }
         Usuario usuario = usuarioOpt.get();
 
-        if ("ADMIN".equals(usuario.getRol())) {
+        if ("ADMINISTRADOR".equals(usuario.getRol())) {
             return ResponseEntity.ok(contenidoService.listarContenidosActivosPorUnidad(unidadId)); // Usar el Service
         }
 
