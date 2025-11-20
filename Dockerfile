@@ -18,6 +18,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Limitamos la memoria a 350MB para evitar el error OOM en Railway
+ENTRYPOINT ["java", "-Xmx350m", "-Xms350m", "-jar", "app.jar"]
 
 
