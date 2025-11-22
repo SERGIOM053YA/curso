@@ -44,7 +44,8 @@ public class SecurityConfig {
                         // (Las reglas más específicas DEBEN ir primero)
                         .requestMatchers(HttpMethod.GET, "/api/examenes/{examenId}/mi-resultado").hasAnyAuthority("ADMINISTRADOR", "ESTUDIANTE")
                         .requestMatchers(HttpMethod.POST, "/api/entregas/**").hasAuthority("ESTUDIANTE")
-                        .requestMatchers(HttpMethod.POST, "/api/respuestas/examen/**").hasAuthority("ADMINISTRADOR", "ESTUDIANTE") // Estudiante ENVÍA
+                        // Solución: Usa hasAnyAuthority (con "Any")
+                        .requestMatchers(HttpMethod.POST, "/api/respuestas/examen/**").hasAnyAuthority("ADMINISTRADOR", "ESTUDIANTE") // Estudiante ENVÍA
                         .requestMatchers(HttpMethod.POST, "/api/inscripciones/**").hasAuthority("ESTUDIANTE")
 
                         // --- REGLA #3: Admin (Reglas Específicas) ---
